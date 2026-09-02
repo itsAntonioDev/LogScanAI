@@ -1,6 +1,6 @@
 # LogScan
 
-Analisador de logs em Python que lê arquivos de log, extrai o nível de severidade de cada linha (INFO, WARNING, ERROR) e gera um relatório resumido — incluindo os detalhes de cada erro encontrado.
+Analisador de logs em Python que lê arquivos de log, extrai o nível de severidade de cada linha (INFO, WARNING, ERROR) e gera um relatório resumido  incluindo os detalhes de cada erro encontrado.
 
 Criado como ferramenta complementar ao [HttpVerify](https://github.com/itsAntonioDev/HttpVerify), reaproveitando os logs gerados pelo monitor de disponibilidade HTTP.
 
@@ -83,6 +83,4 @@ LogScan/
 - Exportar o relatório para um arquivo (`.txt` ou `.json`)
 - Rodar periodicamente como serviço, enviando um resumo diário via webhook do Discord
 
-## Autor
 
-Antonio Henrique

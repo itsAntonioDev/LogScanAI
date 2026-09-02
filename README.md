@@ -77,10 +77,6 @@ LogScan/
 - Leitura com `encoding="utf-8"` e `errors="replace"`, evitando falhas por caracteres especiais malformados no log
 - Código organizado em funções (leitura, processamento e exibição), separando responsabilidades
 
-## Possíveis melhorias futuras
 
-- Filtrar erros por período de tempo (ex: últimas 24h)
-- Exportar o relatório para um arquivo (`.txt` ou `.json`)
-- Rodar periodicamente como serviço, enviando um resumo diário via webhook do Discord
 
 

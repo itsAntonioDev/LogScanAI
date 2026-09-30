@@ -11,16 +11,17 @@ Created as a complementary tool to [HttpVerify](https://github.com/itsAntonioDev
 - Counts how many occurrences exist for each level
 - Lists the details of each error found
 - Generates a formatted report in the terminal
-- Uses Artificial Intelligence to analyze the logs found
-- Assists in interpreting the identified errors
+- Uses Artificial Intelligence to analyze the identified errors
+- Analyzes problems from a DevOps engineering perspective
+- Provides probable causes and suggests what should be checked first
 
 ## Artificial Intelligence Analysis
 
-In addition to the traditional severity-level analysis, LogScan includes an Artificial Intelligence implementation to assist with log analysis.
+LogScan includes an Artificial Intelligence implementation to analyze the errors found in the logs.
 
-After identifying the errors in the file, the information is used to generate a more detailed analysis, helping interpret the problems found in the logs.
+The AI analyzes the collected log information from a DevOps engineering perspective, helping identify the main problem, possible root causes, and the first steps that should be checked.
 
-The goal is to complement the traditional analysis and make it easier to identify and understand potential problems.
+For example, when a monitoring service repeatedly fails to access a domain, the AI can identify a DNS resolution failure as the main issue, explain that the TCP/TLS and HTTP stages were not reached, and suggest checks such as validating the configured URL and testing DNS resolution.
 
 ## Example output
 
@@ -34,7 +35,32 @@ ERROR: 5
 --- Error details ---
 2026-08-25 00:12:08,472 - ERROR - Teste Fora do Ar FORA DO AR - HTTPSConnectionPool(...)
 2026-08-25 00:15:17,727 - ERROR - Teste Fora do Ar FORA DO AR - HTTPSConnectionPool(...)
+2026-08-25 00:18:54,748 - ERROR - Teste Fora do Ar FORA DO AR - HTTPSConnectionPool(...)
+2026-08-25 00:21:22,556 - ERROR - Teste Fora do Ar FORA DO AR - HTTPSConnectionPool(...)
+2026-08-25 00:22:58,877 - ERROR - Teste Fora do Ar FORA DO AR - HTTPSConnectionPool(...)
 
---- AI Analysis ---
-Errors related to service unavailability were identified.
-The analysis indicates connection problems during the HTTP monitoring process.
+=== AI Analysis ===
+Here is the log analysis from a DevOps engineering perspective:
+
+1) Summary of the problem
+
+The monitoring system repeatedly failed when attempting to access
+the configured domain via HTTPS (port 443). The main error is a
+DNS name resolution failure (NameResolutionError), indicating that
+the configured domain could not be resolved to an IP address.
+
+2) Possible causes
+
+DNS is the confirmed root cause based on the logs. Possible causes
+include an invalid or expired domain, a typo in the monitoring URL,
+or DNS servers being unable to resolve the domain.
+
+TCP/TLS and HTTP status codes do not apply in this scenario because
+the request was interrupted during DNS resolution.
+
+3) What to check first
+
+1. Validate the configured monitoring URL.
+2. Check whether the DNS record is correctly configured.
+3. Test DNS resolution using tools such as nslookup or dig.
+4. Verify DNS connectivity from the machine running the monitor.

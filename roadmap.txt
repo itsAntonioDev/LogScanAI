@@ -1,0 +1,165 @@
+# Roadmap DevOps — Antonio Henrique
+
+Roadmap prático, construído a partir do que você já sabe (Full Stack, Linux básico/intermediário, Vim, systemd) até uma base sólida de DevOps júnior/pleno.
+
+Cada fase tem: o que estudar, projeto prático sugerido, e tempo estimado (ritmo consistente, não intensivo).
+
+---
+
+## Fase 0 — Onde você já está (concluído)
+
+- [x] Terminal Linux (navegação, permissões básicas, redirecionamento)
+- [x] Vim (edição modal)
+- [x] Python básico/intermediário
+- [x] systemd (criar e gerenciar serviços)
+- [x] Projeto real rodando em produção (HttpVerify)
+- [x] Parsing de logs (LogScan)
+
+---
+
+## Fase 1 — Git avançado
+**Tempo estimado: 1-2 semanas**
+
+### Estudar
+- Branches (criar, trocar, deletar)
+- Merge vs Rebase (diferença e quando usar cada um)
+- Resolver conflitos de merge
+- `git stash`, `git cherry-pick`
+- Boas práticas de commit (mensagens claras, commits atômicos)
+- Git flow (fluxo de trabalho em equipe)
+
+### Projeto prático
+Simula um fluxo de equipe sozinho: cria branches de feature, força conflitos de propósito, resolve, faz um PR fake no GitHub.
+
+---
+
+## Fase 2 — Redes (fundamentos)
+**Tempo estimado: 2-3 semanas**
+
+### Por que essa fase importa
+Praticamente tudo em DevOps depende de entender como serviços se comunicam. Sem isso, Docker, Kubernetes e Cloud viram "decoreba" sem entender o porquê.
+
+### Estudar
+- Modelo TCP/IP (visão geral, sem precisar decorar as 7 camadas OSI)
+- IP, portas, e a diferença entre TCP e UDP
+- DNS (como nomes viram IP — você já viu isso na prática com o erro do "issonaoexiste123456.com" no HttpVerify)
+- HTTP/HTTPS (métodos, status codes, headers)
+- Firewall e portas abertas/fechadas
+- SSH (como funciona de verdade, chaves públicas/privadas)
+- Ferramentas: `ping`, `curl`, `traceroute`, `netstat`/`ss`, `nslookup`/`dig`
+
+### Projeto prático
+Documenta (num README) o "caminho" que uma requisição HTTP do HttpVerify percorre: DNS → conexão TCP → requisição HTTP → resposta. Testa manualmente com `curl -v` pra ver os detalhes de cada etapa.
+
+---
+
+## Fase 3 — Docker
+**Tempo estimado: 3-4 semanas**
+
+### Estudar
+- Conceito de container vs máquina virtual
+- `Dockerfile` (criar imagens)
+- `docker build`, `docker run`, `docker ps`, `docker logs`
+- Volumes (persistência de dados)
+- Redes no Docker (aqui a Fase 2 já vai ajudar bastante a entender)
+- `docker-compose` (orquestrar múltiplos containers)
+
+### Projeto prático
+Dockerizar o **HttpVerify** (retomar o que já foi planejado). Depois, um segundo projeto com `docker-compose` unindo 2+ serviços (ex: app + banco de dados).
+
+---
+
+## Fase 4 — CI/CD com GitHub Actions
+**Tempo estimado: 2-3 semanas**
+
+### Estudar
+- Conceito de CI (Integração Contínua) e CD (Entrega/Deploy Contínuo)
+- Sintaxe de workflows (`.github/workflows/*.yml`)
+- Rodar testes automaticamente a cada push
+- Build automático de imagem Docker
+- Deploy automático (mesmo que simples, tipo copiar pra um servidor)
+
+### Projeto prático
+Pipeline no HttpVerify ou LogScan: a cada push, roda testes → builda imagem Docker → publica no Docker Hub.
+
+---
+
+## Fase 5 — Cloud (AWS)
+**Tempo estimado: 4-6 semanas**
+
+### Estudar (foco no essencial, não em tudo)
+- IAM (usuários, permissões, políticas)
+- EC2 (servidores virtuais)
+- S3 (armazenamento de arquivos)
+- VPC (redes dentro da AWS — a Fase 2 vai facilitar muito aqui)
+- Security Groups (regras de firewall)
+- (Opcional) RDS (banco de dados gerenciado)
+
+### Projeto prático
+Sobe o HttpVerify rodando numa instância EC2 real (ao invés da VM local), com o Docker que você já construiu.
+
+### Certificação (opcional, mas valorizada)
+AWS Certified Cloud Practitioner — é o nível de entrada, bom pra portfólio.
+
+---
+
+## Fase 6 — Kubernetes
+**Tempo estimado: 4-6 semanas**
+
+### Estudar
+- Conceitos: Pods, Deployments, Services
+- `kubectl` (comandos básicos)
+- ConfigMaps e Secrets
+- Networking dentro do Kubernetes (Service types: ClusterIP, NodePort, LoadBalancer)
+- Minikube ou Kind (Kubernetes local pra praticar sem precisar de cloud)
+
+### Projeto prático
+Roda o HttpVerify (já em Docker) dentro de um cluster Kubernetes local.
+
+---
+
+## Fase 7 — Infraestrutura como Código
+**Tempo estimado: 3-4 semanas**
+
+### Estudar (escolhe um pra começar)
+- **Terraform**: provisionar infraestrutura (servidores, redes) via código
+- **Ansible**: automatizar configuração de servidores
+
+### Projeto prático
+Usa Terraform pra criar a instância EC2 da Fase 5 automaticamente, ao invés de criar manual pelo console da AWS.
+
+---
+
+## Fase 8 — Monitoramento e Observabilidade
+**Tempo estimado: 3-4 semanas**
+
+### Estudar
+- Prometheus (coleta de métricas)
+- Grafana (dashboards visuais)
+- Conceito de alertas e SLIs/SLOs
+
+### Projeto prático
+Substitui a lógica caseira do HttpVerify por uma stack profissional: Prometheus coletando métricas + Grafana mostrando dashboard visual + alertas configurados.
+
+---
+
+## Resumo da linha do tempo
+
+| Fase | Tema | Tempo estimado |
+|---|---|---|
+| 1 | Git avançado | 1-2 semanas |
+| 2 | Redes (fundamentos) | 2-3 semanas |
+| 3 | Docker | 3-4 semanas |
+| 4 | CI/CD | 2-3 semanas |
+| 5 | Cloud (AWS) | 4-6 semanas |
+| 6 | Kubernetes | 4-6 semanas |
+| 7 | IaC (Terraform/Ansible) | 3-4 semanas |
+| 8 | Monitoramento | 3-4 semanas |
+
+**Total estimado: aproximadamente 6-8 meses**, em ritmo consistente (não corrido), com projetos práticos reais em cada etapa — não só teoria.
+
+---
+
+## Princípio geral pra seguir esse roadmap
+
+Não avança de fase sem ter feito o **projeto prático** correspondente. Teoria sem prática não fixa, e é a prática que vira portfólio de verdade — como você já viu com o HttpVerify e o LogScan.

@@ -6,7 +6,7 @@ from collections import Counter
 import requests
 from dotenv import load_dotenv
 
-load_dotenv()  # carrega o GEMINI_API_KEY do arquivo .env
+load_dotenv() # loads the GEMINI_API_KEY from the .env file
 
 CAMINHO_PADRAO = "C:/Users/meupc/Documents/Arquivos/DevOps/HtppVerify/httpverify.log"
 MODELO_GEMINI = "gemini-flash-latest"
@@ -67,7 +67,7 @@ def analisar_com_gemini(linhas_problema, modelo=MODELO_GEMINI):
     if not chave:
         return "Erro: GEMINI_API_KEY não encontrada. Confira o arquivo .env."
 
-    logs = "\n".join(linhas_problema[-50:])  # limita o tamanho
+    logs = "\n".join(linhas_problema[-50:])  # limits the size
     prompt = (
         "Você é um engenheiro DevOps. Analise estes logs de monitoramento "
         "de sites/APIs e responda em português do Brasil:\n"
